@@ -2,19 +2,19 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getDestinationData } from '../services/mockDestinationData';
 import Checklist from '../components/Checklist/Checklist';
+import BudgetCalculator from '../components/BudgetCalculator/BudgetCalculator';
 import './DestinationPage.css';
 
 function DestinationPage() {
-  const { city } = useParams(); // URL-dən şəhər adını oxuyur (məs: /destination/Paris)
-  const navigate = useNavigate(); // Başqa səhifəyə keçmək üçün
+  const { city } = useParams(); 
+  const navigate = useNavigate(); 
 
-  const [data, setData] = useState(null); // Gələn məlumatı burada saxlayırıq
-  const [loading, setLoading] = useState(true); // Yüklənir vəziyyəti
-  const [error, setError] = useState(''); // Səhv olduqda göstəriləcək mesaj
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(''); 
 
-  // Səhifə açılan kimi (və ya şəhər dəyişəndə) bu hissə işləyir
   useEffect(() => {
-    let isMounted = true; // Səhifədən tez çıxsaq state yenilənməsin deyə
+    let isMounted = true; 
 
     setLoading(true);
     setError('');
@@ -33,11 +33,9 @@ function DestinationPage() {
         }
       });
 
-    // Təmizləmə funksiyası (komponent silinən və ya şəhər dəyişən zaman işləyir)
     return () => { isMounted = false; };
-  }, [city]); // city dəyişəndə yenidən işə düşür
+  }, [city]);
 
-  // 1. Yüklənir vəziyyəti
   if (loading) {
     return (
       <div className="dest-page">
@@ -47,7 +45,6 @@ function DestinationPage() {
     );
   }
 
-  // 2. Səhv vəziyyəti
   if (error) {
     return (
       <div className="dest-page">
@@ -57,7 +54,6 @@ function DestinationPage() {
     );
   }
 
-  // 3. Uğurlu yüklənmə
   return (
     <div className="dest-page">
       <button className="back-btn" onClick={() => navigate('/')}>← Back to Home</button>
@@ -83,6 +79,7 @@ function DestinationPage() {
       </div>
 
       <Checklist country={data.country} />
+       <BudgetCalculator destinationCurrency={data.currency} />
     </div>
   );
 }
