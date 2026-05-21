@@ -1,0 +1,50 @@
+.dest-page {
+  min-height: 100vh;
+  background: #f8fafc;
+  padding: 20px;
+}
+
+.back-btn {
+  background: #e2e8f0;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 24px;
+  color: #0f172a;
+}
+
+.back-btn:hover {
+  background: #cbd5e1;
+}
+
+.dest-header {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.city-title {
+  font-size: 36px;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+}
+
+.country-sub {
+  font-size: 16px;
+  color: #64748b;
+  margin: 0;
+}
+
+.dest-body {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  color: #475569;
+  line-height: 1.6;
+}
