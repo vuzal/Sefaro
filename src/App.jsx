@@ -7,6 +7,7 @@ import HeroSearch from './components/HeroSearch/HeroSearch';
 import DestinationGrid from './components/DestinationGrid/DestinationGrid';
 import TravelQuizModal from './components/TravelQuizModal/TravelQuizModal';
 import { getDestinationData } from './services/mockDestinationData';
+import ComparePage from './pages/ComparePage';
 import './App.css';
 
 
@@ -35,6 +36,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/destination/:city" element={<DestinationPage />} />
+        <Route path="/compare" element={<ComparePage />} />
       </Routes>
     </Router>
   );

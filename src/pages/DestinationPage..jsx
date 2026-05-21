@@ -3,18 +3,19 @@ import { useEffect, useState } from 'react';
 import { getDestinationData } from '../services/mockDestinationData';
 import Checklist from '../components/Checklist/Checklist';
 import BudgetCalculator from '../components/BudgetCalculator/BudgetCalculator';
+import TripPlanner from '../components/TripPlanner/TripPlanner';
 import './DestinationPage.css';
 
 function DestinationPage() {
-  const { city } = useParams(); 
-  const navigate = useNavigate(); 
+  const { city } = useParams();
+  const navigate = useNavigate();
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(''); 
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    let isMounted = true; 
+    let isMounted = true;
 
     setLoading(true);
     setError('');
@@ -79,7 +80,8 @@ function DestinationPage() {
       </div>
 
       <Checklist country={data.country} />
-       <BudgetCalculator destinationCurrency={data.currency} />
+      <BudgetCalculator destinationCurrency={data.currency} />
+      <TripPlanner />
     </div>
   );
 }
