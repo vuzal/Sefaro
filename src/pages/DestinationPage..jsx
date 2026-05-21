@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getDestinationData } from '../services/mockDestinationData';
+import Checklist from '../components/Checklist/Checklist';
 import './DestinationPage.css';
 
 function DestinationPage() {
@@ -80,6 +81,8 @@ function DestinationPage() {
           <p>{data.language}</p>
         </div>
       </div>
+
+      <Checklist country={data.country} />
     </div>
   );
 }
