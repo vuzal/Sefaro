@@ -6,6 +6,7 @@ import Header from './components/Header/Header';
 import HeroSearch from './components/HeroSearch/HeroSearch';
 import DestinationGrid from './components/DestinationGrid/DestinationGrid';
 import TravelQuizModal from './components/TravelQuizModal/TravelQuizModal';
+import { getDestinationData } from './services/mockDestinationData';
 import './App.css';
 
 

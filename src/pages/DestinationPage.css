@@ -2,6 +2,7 @@
   min-height: 100vh;
   background: #f8fafc;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .back-btn {
@@ -17,6 +18,21 @@
 
 .back-btn:hover {
   background: #cbd5e1;
+}
+
+.loading-box, .error-box {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  font-size: 16px;
+  color: #64748b;
+}
+
+.error-box {
+  color: #ef4444;
+  background: #fef2f2;
 }
 
 .dest-header {
@@ -40,11 +56,34 @@
   margin: 0;
 }
 
-.dest-body {
+.info-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.info-card {
   background: #ffffff;
-  padding: 20px;
+  padding: 24px;
   border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   text-align: center;
-  color: #475569;
-  line-height: 1.6;
+  flex: 1 1 200px;
+  min-width: 200px;
+}
+
+.info-card h3 {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.info-card p {
+  font-size: 20px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
 }
