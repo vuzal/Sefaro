@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getDestinationData } from '../services/mockDestinationData';
+import { fetchCountryData } from '../services/countriesApi';
 import Checklist from '../components/Checklist/Checklist';
 import BudgetCalculator from '../components/BudgetCalculator/BudgetCalculator';
 import TripPlanner from '../components/TripPlanner/TripPlanner';
@@ -16,11 +16,10 @@ function DestinationPage() {
 
   useEffect(() => {
     let isMounted = true;
-
     setLoading(true);
     setError('');
 
-    getDestinationData(city)
+    fetchCountryData(city)
       .then((result) => {
         if (isMounted) {
           setData(result);
@@ -29,7 +28,7 @@ function DestinationPage() {
       })
       .catch(() => {
         if (isMounted) {
-          setError('Failed to load destination data.');
+          setError('Failed to load country data. Please check the spelling.');
           setLoading(false);
         }
       });
@@ -46,6 +45,7 @@ function DestinationPage() {
     );
   }
 
+
   if (error) {
     return (
       <div className="dest-page">
@@ -60,27 +60,32 @@ function DestinationPage() {
       <button className="back-btn" onClick={() => navigate('/')}>← Back to Home</button>
 
       <div className="dest-header">
-        <h1 className="city-title">{data.city}</h1>
-        <p className="country-sub">{data.country}</p>
+        <img src={data.flag} alt={data.name} className="country-flag" />
+        <h1 className="city-title">{data.name}</h1>
+        <p className="country-sub">{data.region} {data.subregion && `• ${data.subregion}`}</p>
       </div>
 
       <div className="info-grid">
         <div className="info-card">
-          <h3>Weather</h3>
-          <p>{data.temp}°C | {data.condition}</p>
+          <h3>Capital</h3>
+          <p>{data.capital}</p>
         </div>
         <div className="info-card">
-          <h3>Currency</h3>
-          <p>{data.currency}</p>
+          <h3>Population</h3>
+          <p>{data.population}</p>
         </div>
         <div className="info-card">
           <h3>Language</h3>
           <p>{data.language}</p>
         </div>
+        <div className="info-card">
+          <h3>Currency</h3>
+          <p>{data.currency} ({data.currencyCode})</p>
+        </div>
       </div>
 
-      <Checklist country={data.country} />
-      <BudgetCalculator destinationCurrency={data.currency} />
+      <Checklist country={data.name} />
+      <BudgetCalculator destinationCurrency={data.currencyCode || 'USD'} />
       <TripPlanner />
     </div>
   );

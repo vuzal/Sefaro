@@ -32,6 +32,17 @@
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
 
+.destinations__card {
+  display: block;             /* Linkin tam blok kimi davranması üçün */
+  text-decoration: none;      /* Alt xətti silmək üçün */
+  color: inherit;             /* Yazı rəngini dəyişdirməmək üçün */
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
 .destinations_img {
   width: 100%;
   height: 180px;
