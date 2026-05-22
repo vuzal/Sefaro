@@ -5,6 +5,8 @@ import Checklist from '../components/Checklist/Checklist';
 import BudgetCalculator from '../components/BudgetCalculator/BudgetCalculator';
 import TripPlanner from '../components/TripPlanner/TripPlanner';
 import './DestinationPage.css';
+import WeatherCard from '../components/WeatherCard/WeatherCard';
+import PhotoGallery from '../components/PhotoGallery/PhotoGallery';
 
 function DestinationPage() {
   const { city } = useParams();
@@ -64,6 +66,11 @@ function DestinationPage() {
         <h1 className="city-title">{data.name}</h1>
         <p className="country-sub">{data.region} {data.subregion && `• ${data.subregion}`}</p>
       </div>
+
+      <PhotoGallery city={data.capital || data.name} />
+
+
+      <WeatherCard city={data.capital || data.name} />
 
       <div className="info-grid">
         <div className="info-card">

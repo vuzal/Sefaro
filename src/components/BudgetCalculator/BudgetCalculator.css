@@ -120,3 +120,13 @@
   .budget-inputs { flex-direction: column; }
   .budget-categories { grid-template-columns: 1fr; }
 }
+
+.budget-error {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 16px;
+}

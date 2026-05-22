@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { convertCurrency } from '../../services/mockCurrency';
+import { getExchangeRate } from '../../services/exchangeRateApi';
 import './BudgetCalculator.css';
 
 function BudgetCalculator({ destinationCurrency }) {
   const [days, setDays] = useState(3);
   const [travelers, setTravelers] = useState(1);
-  
   const [budget, setBudget] = useState({
     hotel: 100,
     food: 50,
@@ -15,34 +14,38 @@ function BudgetCalculator({ destinationCurrency }) {
 
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  function handleBudgetChange(category, value) {
-    const num = parseInt(value) || 0; 
-    setBudget(function(prev) {
-      const newBudget = { ...prev }; 
-      newBudget[category] = num;  
-      return newBudget;
-    });
-  }
+  const handleBudgetChange = (category, value) => {
+    const num = parseInt(value) || 0;
+    setBudget(prev => ({ ...prev, [category]: num }));
+  };
 
-  function calculateBudget() {
+  const calculateBudget = async () => {
     setLoading(true);
-    
+    setError('');
+    setResult(null);
+
     const dailyTotal = budget.hotel + budget.food + budget.transport + budget.entertainment;
     const totalAZN = dailyTotal * days * travelers;
 
-    convertCurrency(totalAZN, destinationCurrency)
-      .then(function(data) {
-        setResult({
-          totalAZN: totalAZN,
-          converted: data.converted,
-          currency: data.currency,
-          perPerson: Math.round((totalAZN / travelers) * 100) / 100,
-          perDay: Math.round((dailyTotal) * 100) / 100
-        });
-        setLoading(false);
+    try {
+      const conversion = await getExchangeRate('AZN', destinationCurrency || 'USD', totalAZN);
+      
+      setResult({
+        totalAZN,
+        converted: conversion.converted,
+        currency: conversion.to,
+        perPerson: Math.round((totalAZN / travelers) * 100) / 100,
+        perDay: Math.round(dailyTotal * 100) / 100,
+        rate: conversion.rate
       });
-  }
+    } catch (err) {
+      setError(err.message || 'Valyuta hesablanarkən xəta baş verdi.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="budget">
@@ -82,6 +85,8 @@ function BudgetCalculator({ destinationCurrency }) {
         {loading ? 'Calculating...' : 'Calculate Total'}
       </button>
 
+      {error && <p className="budget-error">⚠️ {error}</p>}
+
       {result && (
         <div className="budget-result">
           <div className="result-row">
@@ -91,6 +96,9 @@ function BudgetCalculator({ destinationCurrency }) {
           <div className="result-row highlight">
             <span>Total ({result.currency}):</span>
             <strong>{result.converted} {result.currency}</strong>
+          </div>
+          <div className="result-row">
+            <span>Exchange Rate (1 AZN = {result.rate.toFixed(4)} {result.currency})</span>
           </div>
           <div className="result-row">
             <span>Per person:</span>
