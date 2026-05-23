@@ -8,7 +8,6 @@ import TravelQuizModal from './components/TravelQuizModal/TravelQuizModal';
 import DestinationPage from "./pages/DestinationPage"
 import ComparePage from './pages/ComparePage';
 import MyTrips from './components/MyTrips/MyTrips';
-import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
 
 function Home() {
@@ -37,8 +36,6 @@ function App() {
             <Route path="/destination/:city" element={<DestinationPage />} />
             <Route path="/compare" element={<ComparePage />} />
             <Route path="/my-trips" element={<MyTrips />} />
-            {/* Ən sonda * qoymaq vacibdir: bilinməyən URL-ləri tutur */}
-            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
 
